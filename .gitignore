@@ -32,3 +32,7 @@ Thumbs.db
 
 # Local screenshot dumps from tooling
 assets/c__Users_*
+
+# Keep only README.md tracked on GitHub
+*.md
+!README.md
