@@ -1,0 +1,39 @@
+{
+  "name": "scroodle-game",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev:client": "vite --config vite.client.config.ts",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build --config vite.client.config.ts",
+    "build:server": "vite build --config vite.server.config.ts",
+    "devvit:upload": "npm run build && npx devvit upload",
+    "devvit:playtest": "npm run build && npx devvit playtest",
+    "devvit:preview": "npm run build && npx devvit preview"
+  },
+  "dependencies": {
+    "@devvit/web": "0.12.12",
+    "@tailwindcss/vite": "^4.1.18",
+    "canvas-confetti": "^1.9.4",
+    "clsx": "^2.1.1",
+    "express": "^5.2.1",
+    "perfect-freehand": "^1.2.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.4",
+    "devvit": "^0.12.12",
+    "typescript": "5.9.3",
+    "vite": "^7.3.1",
+    "vite-tsconfig-paths": "^6.1.1"
+  },
+  "version": "0.0.0",
+  "license": "BSD-3-Clause"
+}

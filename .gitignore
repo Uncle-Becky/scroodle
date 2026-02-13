@@ -1,0 +1,34 @@
+node_modules/
+
+# Build artifacts
+dist/
+coverage/
+*.tsbuildinfo
+
+# Env and local-only config
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / workspace state
+.cursor/
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Local screenshot dumps from tooling
+assets/c__Users_*

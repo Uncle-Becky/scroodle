@@ -1,0 +1,157 @@
+{
+  "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
+  "name": "scroodle-game",
+  "media": {
+    "dir": "assets"
+  },
+  "post": {
+    "dir": "dist/client",
+    "entrypoints": {
+      "default": {
+        "entry": "preview.html",
+        "height": "regular",
+        "inline": true
+      },
+      "game": {
+        "entry": "index.html",
+        "height": "tall"
+      }
+    }
+  },
+  "server": {
+  "entry": "index.cjs"
+},
+  "permissions": {
+    "redis": true,
+    "realtime": true,
+    "reddit": {
+      "enable": true,
+      "scope": "user"
+    },
+    "http": {
+      "enable": true,
+      "domains": [
+        "api.dictionaryapi.dev",
+        "raw.githubusercontent.com"
+      ]
+    },
+    "media": false,
+    "payments": false
+  },
+  "triggers": {
+    "onPostCreate": "/internal/triggers/post-create",
+    "onPostDelete": "/internal/triggers/post-delete",
+    "onAppInstall": "/internal/triggers/app-install",
+    "onAppUpgrade": "/internal/triggers/app-upgrade"
+  },
+  "menu": {
+    "items": [
+      {
+        "label": "Create Scribble Match Post",
+        "description": "Create a new game post for matchmaking",
+        "forUserType": "moderator",
+        "location": "subreddit",
+        "endpoint": "/internal/menu/create-game-post"
+      },
+      {
+        "label": "Reset Lobby (Admin)",
+        "description": "Clears matchmaking queue + orphaned rooms for this post",
+        "forUserType": "moderator",
+        "location": "post",
+        "postFilter": "currentApp",
+        "endpoint": "/internal/menu/reset-lobby"
+      }
+    ]
+  },
+  "scheduler": {
+    "tasks": {
+      "mm-sweep": {
+        "endpoint": "/internal/cron/mm-sweep",
+        "cron": "*/1 * * * *"
+      },
+      "room-gc": {
+        "endpoint": "/internal/cron/room-gc",
+        "cron": "*/5 * * * *"
+      },
+      "daily-rotate-words": {
+        "endpoint": "/internal/cron/daily-rotate-words",
+        "cron": "0 4 * * *",
+        "data": {
+          "rotation": "daily"
+        }
+      }
+    }
+  },
+  "settings": {
+    "global": {
+      "roomTokenSalt": {
+        "type": "string",
+        "label": "Room token salt",
+        "helpText": "Used to generate unguessable room/private-channel tokens.",
+        "isSecret": true
+      },
+      "wordlistUrl": {
+        "type": "string",
+        "label": "Wordlist URL",
+        "helpText": "Optional external wordlist source (server fetch only).",
+        "placeholder": "https://raw.githubusercontent.com/.../words.txt"
+      }
+    },
+    "subreddit": {
+      "maxPlayers": {
+        "type": "number",
+        "label": "Max players per room",
+        "helpText": "Hard-cap for matchmaking rooms (recommended 4).",
+        "defaultValue": 4,
+        "validationEndpoint": "/internal/settings/validate-max-players"
+      },
+      "minPlayersToStart": {
+        "type": "number",
+        "label": "Min players to start",
+        "helpText": "Start a match once at least this many players are present.",
+        "defaultValue": 2
+      },
+      "roundTimeSec": {
+        "type": "number",
+        "label": "Round timer (seconds)",
+        "defaultValue": 80
+      },
+      "roundsPerGame": {
+        "type": "number",
+        "label": "Rounds per game",
+        "defaultValue": 3,
+        "validationEndpoint": "/internal/settings/validate-rounds-per-game"
+      },
+      "allowCustomWords": {
+        "type": "boolean",
+        "label": "Allow custom word submissions",
+        "defaultValue": false
+      },
+      "language": {
+        "type": "select",
+        "label": "Wordlist language",
+        "options": [
+          {
+            "label": "English",
+            "value": "en"
+          },
+          {
+            "label": "Spanish",
+            "value": "es"
+          }
+        ],
+        "defaultValue": "en"
+      }
+    }
+  },
+  "forms": {
+    "report_word": "/internal/forms/report-word",
+    "report_player": "/internal/forms/report-player"
+  },
+  "marketingAssets": {
+    "icon": "assets/icon.png"
+  },
+  "dev": {
+    "subreddit": "RPANclipped"
+  }
+}
