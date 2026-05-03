@@ -12,7 +12,7 @@
     "devvit:preview": "npm run build && npx devvit preview"
   },
   "dependencies": {
-    "@devvit/web": "0.12.12",
+    "@devvit/web": "0.12.22",
     "@tailwindcss/vite": "^4.1.18",
     "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
